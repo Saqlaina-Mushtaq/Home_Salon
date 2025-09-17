@@ -1,0 +1,13 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --primary: #0d9488; /* teal */
+}
+
+/* small helpers to match the earlier static site feel */
+.container { max-width: 1100px; margin-left: auto; margin-right: auto; padding-left: 18px; padding-right: 18px; }
+.card { @apply bg-white rounded-xl shadow-md p-6 }
+
+/* You can add custom styles below as needed */
