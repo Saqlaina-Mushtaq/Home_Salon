@@ -1,0 +1,228 @@
+import { useState, useEffect } from 'react'
+
+export default function Home() {
+  const [isOpen, setIsOpen] = useState(false)
+  const [year, setYear] = useState(new Date().getFullYear())
+
+  useEffect(() => { setYear(new Date().getFullYear()) }, [])
+
+  function handleBookingSubmit(e) {
+    e.preventDefault()
+    const form = e.target
+    const data = {
+      name: form.bName.value.trim(),
+      phone: form.bPhone.value.trim(),
+      service: form.bService.value,
+      when: form.bWhen.value,
+      pkg: form.bPackage.value
+    }
+    if (!data.name || !data.phone || !data.service || !data.when) {
+      alert('Please fill all required fields.')
+      return
+    }
+    alert(`Thanks ${data.name}! Booking (demo): ${data.service} on ${new Date(data.when).toLocaleString()}`)
+    form.reset()
+    setIsOpen(false)
+  }
+
+  function handleContact(e) {
+    e.preventDefault()
+    const form = e.target
+    if (!form.contactName.value.trim() || !form.contactEmail.value.trim() || !form.contactMessage.value.trim()) {
+      alert('Please fill all fields.');
+      return
+    }
+    alert('Message sent (demo). We will contact you soon.')
+    form.reset()
+  }
+
+  return (
+    <div className="min-h-screen bg-slate-50 text-slate-900">
+      <header className="sticky top-0 bg-white/70 backdrop-blur z-30 border-b">
+        <div className="container flex items-center justify-between py-4">
+          <div className="text-xl font-semibold text-teal-600">HomeSalon</div>
+          <nav className="hidden md:flex items-center gap-4">
+            <a href="#home" className="hover:underline">Home</a>
+            <a href="#services" className="hover:underline">Services</a>
+            <a href="#how" className="hover:underline">How it works</a>
+            <a href="#features" className="hover:underline">Features</a>
+            <a href="#contact" className="hover:underline">Contact</a>
+            <button onClick={() => setIsOpen(true)} className="ml-4 px-4 py-2 bg-teal-600 text-white rounded-lg">Book Now</button>
+          </nav>
+          <button onClick={() => setIsOpen(true)} className="md:hidden px-3 py-2 bg-teal-600 text-white rounded-lg">Book</button>
+        </div>
+      </header>
+
+      <main>
+        <section id="home" className="py-12">
+          <div className="container flex flex-col md:flex-row items-center gap-8">
+            <div className="md:flex-1">
+              <h1 className="text-3xl md:text-4xl font-bold mb-4">Professional salon services at home</h1>
+              <p className="text-slate-600 mb-6">Book vetted beauticians, choose packages, get reminders and manage appointments. Designed for users, beauticians, vendors, admin and support teams.</p>
+              <div className="flex gap-3">
+                <button onClick={() => setIsOpen(true)} className="px-5 py-2 bg-teal-600 text-white rounded-lg">Book a service</button>
+                <a href="#services" className="px-4 py-2 border rounded-lg">View services</a>
+              </div>
+            </div>
+            <div className="md:w-96">
+              <div className="card flex items-center justify-center h-56">Image</div>
+            </div>
+          </div>
+        </section>
+
+        <section id="services" className="py-8">
+          <div className="container">
+            <h2 className="text-2xl font-semibold">Our services</h2>
+            <p className="text-slate-600">Choose from classic to premium packages, add products, and create custom bundles.</p>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-6">
+              <div className="card">
+                <h3 className="font-semibold">Haircut & Styling</h3>
+                <p className="text-sm text-slate-600">Professional haircut and styling at your home.</p>
+                <div className="text-xs text-slate-500 mt-3">Duration: 30-60 mins • Price: From ₹499</div>
+              </div>
+
+              <div className="card">
+                <h3 className="font-semibold">Facial & Skincare</h3>
+                <p className="text-sm text-slate-600">Relaxing facials and skincare tailored to your skin type.</p>
+                <div className="text-xs text-slate-500 mt-3">Duration: 45-90 mins • Price: From ₹699</div>
+              </div>
+
+              <div className="card">
+                <h3 className="font-semibold">Manicure & Pedicure</h3>
+                <p className="text-sm text-slate-600">Hygienic nail care and polish.</p>
+                <div className="text-xs text-slate-500 mt-3">Duration: 30-60 mins • Price: From ₹299</div>
+              </div>
+
+              <div className="card">
+                <h3 className="font-semibold">Makeup</h3>
+                <p className="text-sm text-slate-600">Occasion and bridal makeup by experienced beauticians.</p>
+                <div className="text-xs text-slate-500 mt-3">Duration: 60-120 mins • Price: From ₹1499</div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="how" className="py-8 bg-white">
+          <div className="container">
+            <h2 className="text-2xl font-semibold">How booking works</h2>
+            <ol className="list-decimal pl-6 mt-3 text-slate-600">
+              <li>Browse & filter: Choose service type, price, rating.</li>
+              <li>Pick a beautician: Premium choose specific pro, classic auto-assign.</li>
+              <li>Confirm & pay: Secure payment options and confirmation email.</li>
+              <li>Service & feedback: Get invoice and rate the service.</li>
+            </ol>
+          </div>
+        </section>
+
+        <section id="features" className="py-8">
+          <div className="container">
+            <h2 className="text-2xl font-semibold">Platform components</h2>
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+              <div className="card">
+                <h4 className="font-semibold">User App</h4>
+                <p className="text-slate-600 text-sm">Register, book services, chat with beautician, request refunds, apply coupons, manage subscriptions and reminders.</p>
+              </div>
+              <div className="card">
+                <h4 className="font-semibold">Beautician App</h4>
+                <p className="text-slate-600 text-sm">Manage schedule, accept bookings, log job hours, order products and access client history.</p>
+              </div>
+              <div className="card">
+                <h4 className="font-semibold">Vendor Panel</h4>
+                <p className="text-slate-600 text-sm">Manage bookings, slots (15-30 minute durations), coupons, promos and inventory per franchise.</p>
+              </div>
+              <div className="card">
+                <h4 className="font-semibold">Admin & Support</h4>
+                <p className="text-slate-600 text-sm">Platform oversight, RBAC, reporting, support panel for booking/rescheduling and emergency alerts.</p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section id="contact" className="py-8 bg-white">
+          <div className="container">
+            <h2 className="text-2xl font-semibold">Contact</h2>
+            <form onSubmit={handleContact} className="mt-4 max-w-lg">
+              <label className="block mb-3">
+                <div className="text-sm">Your name</div>
+                <input name="contactName" className="w-full mt-1 p-2 border rounded-md" required />
+              </label>
+              <label className="block mb-3">
+                <div className="text-sm">Email</div>
+                <input type="email" name="contactEmail" className="w-full mt-1 p-2 border rounded-md" required />
+              </label>
+              <label className="block mb-3">
+                <div className="text-sm">Message</div>
+                <textarea name="contactMessage" rows="4" className="w-full mt-1 p-2 border rounded-md" required />
+              </label>
+              <div className="flex gap-3">
+                <button type="submit" className="px-4 py-2 bg-slate-800 text-white rounded-md">Send</button>
+                <button type="button" onClick={() => window.scrollTo({top:0, behavior:'smooth'})} className="px-4 py-2 border rounded-md">Top</button>
+              </div>
+            </form>
+          </div>
+        </section>
+      </main>
+
+      <footer className="py-6">
+        <div className="container flex items-center justify-between text-sm text-slate-500">
+          <div>© {year} HomeSalon. All rights reserved.</div>
+          <div className="flex gap-3">
+            <a href="#privacy" className="hover:underline">Privacy</a>
+            <a href="#terms" className="hover:underline">Terms</a>
+          </div>
+        </div>
+      </footer>
+
+      {/* Booking Modal */}
+      {isOpen && (
+        <div className="fixed inset-0 bg-black/50 flex items-center justify-center p-4 z-40">
+          <div className="bg-white rounded-xl max-w-xl w-full p-6 relative">
+            <button onClick={() => setIsOpen(false)} className="absolute top-3 right-3 text-xl">×</button>
+            <h3 className="text-lg font-semibold mb-3">Book a service</h3>
+            <form onSubmit={handleBookingSubmit} className="space-y-3">
+              <label className="block">
+                <div className="text-sm">Full name</div>
+                <input name="bName" className="w-full mt-1 p-2 border rounded-md" required />
+              </label>
+
+              <label className="block">
+                <div className="text-sm">Phone</div>
+                <input name="bPhone" className="w-full mt-1 p-2 border rounded-md" required />
+              </label>
+
+              <label className="block">
+                <div className="text-sm">Service</div>
+                <select name="bService" className="w-full mt-1 p-2 border rounded-md" required>
+                  <option value="">Select a service</option>
+                  <option>Haircut & Styling</option>
+                  <option>Facial & Skincare</option>
+                  <option>Manicure & Pedicure</option>
+                  <option>Makeup</option>
+                </select>
+              </label>
+
+              <label className="block">
+                <div className="text-sm">Preferred date & time</div>
+                <input name="bWhen" type="datetime-local" className="w-full mt-1 p-2 border rounded-md" required />
+              </label>
+
+              <label className="block">
+                <div className="text-sm">Package type</div>
+                <select name="bPackage" className="w-full mt-1 p-2 border rounded-md">
+                  <option>Classic (auto assign)</option>
+                  <option>Premium (choose beautician)</option>
+                </select>
+              </label>
+
+              <div className="flex gap-3 mt-4">
+                <button type="submit" className="px-4 py-2 bg-teal-600 text-white rounded-md">Confirm booking</button>
+                <button type="button" onClick={() => setIsOpen(false)} className="px-4 py-2 border rounded-md">Cancel</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      )}
+    </div>
+  )
+}
